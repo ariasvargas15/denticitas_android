@@ -13,4 +13,12 @@
     <string name="menu_slideshow">Slideshow</string>
 
     <string name="name_customer">Diana</string>
+    <string name="menu_servicios">Servicios</string>
+    <string name="menu_citas">Mis citas</string>
+    <string name="menu_agendar">Agendar</string>
+    <string name="menu_info">Acerca de</string>
+    <string name="menu_logout">Cerrar Sesión</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="menu_perfil">Perfil</string>
 </resources>
