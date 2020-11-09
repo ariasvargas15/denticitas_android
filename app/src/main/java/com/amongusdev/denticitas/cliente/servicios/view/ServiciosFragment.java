@@ -3,65 +3,54 @@ package com.amongusdev.denticitas.cliente.servicios.view;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.amongusdev.denticitas.R;
+import com.amongusdev.denticitas.cliente.servicios.adapter.ServicioAdapter;
 import com.amongusdev.denticitas.cliente.servicios.interfaces.IServicios;
+import com.amongusdev.denticitas.cliente.servicios.presenter.ServiciosPresenter;
+import com.amongusdev.denticitas.model.entities.Servicio;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link ServiciosFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import java.util.ArrayList;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class ServiciosFragment extends Fragment implements IServicios.View {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    @BindView(R.id.recycler_servicios)
+    RecyclerView recyclerView;
+
+    private IServicios.Presenter presenter;
 
     public ServiciosFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment ServiciosFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static ServiciosFragment newInstance(String param1, String param2) {
-        ServiciosFragment fragment = new ServiciosFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_servicios, container, false);
+        View v = inflater.inflate(R.layout.fragment_servicios, container, false);
+        ButterKnife.bind(this, v);
+
+        presenter = new ServiciosPresenter(this);
+        presenter.buscarServicios();
+        return v;
+    }
+
+    @Override
+    public void mostrarServicios(ArrayList<Servicio> servicios) {
+        LinearLayoutManager lm = new LinearLayoutManager(getContext());
+        lm.setOrientation(LinearLayoutManager.VERTICAL);
+        recyclerView.setLayoutManager(lm);
+        ServicioAdapter adapter = new ServicioAdapter(servicios);
+        recyclerView.setAdapter(adapter);
+
     }
 }

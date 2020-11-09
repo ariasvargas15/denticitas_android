@@ -1,4 +1,6 @@
 package com.amongusdev.denticitas.model.entities;
 
-public class Cliente {
+import java.io.Serializable;
+
+public class Cliente implements Serializable {
 }

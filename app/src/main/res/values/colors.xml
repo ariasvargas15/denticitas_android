@@ -2,8 +2,8 @@
 <resources>
     <color name="colorPrimary">#0367FE</color>
     <color name="colorPrimaryDark">#184499</color>
-    <color name="colorAccent">#F87D00</color>
-    <color name="colorAccentLight">#FCC330</color>
+    <color name="colorAccent">#184499</color>
+    <color name="colorAccentLight">#4682B4</color>
     <color name="fontTitle">#27214D</color>
     <color name="fontProduct">#27214D</color>
     <color name="grey">#86869E</color>
