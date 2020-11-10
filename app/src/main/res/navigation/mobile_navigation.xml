@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/nav_servicios">
+
+    <fragment
+        android:id="@+id/nav_servicios"
+        android:name="com.amongusdev.denticitas.cliente.servicios.view.ServiciosFragment"
+        android:label="@string/menu_servicios"
+        tools:layout="@layout/fragment_servicios" >
+        <action
+            android:id="@+id/action_nav_servicios_to_nav_agendar"
+            app:destination="@id/nav_agendar" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_citas"
+        android:name="com.amongusdev.denticitas.cliente.citas.view.CitasFragment"
+        android:label="@string/menu_citas"
+        tools:layout="@layout/fragment_servicios" />
+
+    <fragment
+        android:id="@+id/nav_agendar"
+        android:name="com.amongusdev.denticitas.cliente.agendar.view.AgendarFragment"
+        android:label="@string/menu_agendar"
+        tools:layout="@layout/fragment_agendar" />
+
+    <fragment
+        android:id="@+id/nav_perfil"
+        android:name="com.amongusdev.denticitas.cliente.perfil.view.PerfilFragment"
+        android:label="@string/menu_perfil"
+        tools:layout="@layout/fragment_perfil" />
+
+
+
+</navigation>
