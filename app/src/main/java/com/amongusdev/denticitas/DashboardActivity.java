@@ -29,7 +29,7 @@ public class DashboardActivity extends AppCompatActivity {
         NavigationView navigationView = findViewById(R.id.nav_view);
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
-        mAppBarConfiguration = new AppBarConfiguration.Builder(R.id.nav_servicios, R.id.nav_citas, R.id.nav_agendar)
+        mAppBarConfiguration = new AppBarConfiguration.Builder(R.id.nav_servicios, R.id.nav_citas)
                 .setDrawerLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);

@@ -13,10 +13,6 @@
             android:icon="@drawable/ic_calendar"
             android:title="@string/menu_citas" />
         <item
-            android:id="@+id/nav_agendar"
-            android:icon="@drawable/ic_add"
-            android:title="@string/menu_agendar" />
-        <item
             android:id="@+id/nav_info"
             android:icon="@drawable/ic_info"
             android:title="@string/menu_info" />

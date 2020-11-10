@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.amongusdev.denticitas.R;
+import com.amongusdev.denticitas.cliente.servicios.interfaces.OnClickListenerServicio;
 import com.amongusdev.denticitas.model.entities.Servicio;
 import com.google.android.material.button.MaterialButton;
 
@@ -20,6 +21,7 @@ import butterknife.ButterKnife;
 public class ServicioAdapter extends RecyclerView.Adapter<ServicioAdapter.ServicioViewHolder> {
 
     private ArrayList<Servicio> servicios;
+    private OnClickListenerServicio onClickListenerServicio;
 
     public ServicioAdapter(ArrayList<Servicio> servicios) {
         this.servicios = servicios;
@@ -46,7 +48,11 @@ public class ServicioAdapter extends RecyclerView.Adapter<ServicioAdapter.Servic
         return servicios.size();
     }
 
-    static class ServicioViewHolder extends RecyclerView.ViewHolder {
+    public void setOnClick(OnClickListenerServicio onClick){
+        this.onClickListenerServicio = onClick;
+    }
+
+    public class ServicioViewHolder extends RecyclerView.ViewHolder {
 
         @BindView(R.id.serviceName)
         TextView nombreServicio;
@@ -60,6 +66,7 @@ public class ServicioAdapter extends RecyclerView.Adapter<ServicioAdapter.Servic
         public ServicioViewHolder(@NonNull View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
+            agendar.setOnClickListener(v -> onClickListenerServicio.onClickAgendarServicio(servicios.get(getAdapterPosition())));
         }
     }
 }
