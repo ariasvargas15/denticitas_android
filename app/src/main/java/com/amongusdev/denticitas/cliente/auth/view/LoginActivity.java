@@ -24,12 +24,12 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     @OnClick(R.id.btn_login)
-    public void onClickLogin(View view){
+    public void onClickLogin(){
         Utils.goToNextActivityCleanStack(this, DashboardActivity.class, false, null);
     }
 
     @OnClick(R.id.btn_registrate)
-    public void onClickRegistro(View view){
+    public void onClickRegistro(){
         Utils.goToNextActivityCleanStack(this, RegistroActivity.class, false, null);
     }
 }

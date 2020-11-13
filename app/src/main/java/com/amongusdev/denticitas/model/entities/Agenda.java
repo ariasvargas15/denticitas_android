@@ -11,19 +11,20 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class Area implements Serializable {
-
+public class Agenda implements Serializable {
     @SerializedName("id")
     @Expose
     private Integer id;
-    @SerializedName("nombre")
+    @SerializedName("mes")
     @Expose
-    private String nombre;
-    @SerializedName("descripcion")
+    private Integer mes;
+    @SerializedName("anio")
     @Expose
-    private String descripcion;
-    @SerializedName("especialistaList")
+    private Integer anio;
+    @SerializedName("agendaId")
     @Expose
-    private List<Object> especialistaList = null;
-
+    private List<DiaAgenda> diaAgendaList;
+    @SerializedName("especialista_cedula")
+    @Expose
+    private Especialista especialistaCedula;
 }

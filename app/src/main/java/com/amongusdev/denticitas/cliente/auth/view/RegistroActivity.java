@@ -22,12 +22,12 @@ public class RegistroActivity extends AppCompatActivity implements IRegistro.Vie
     }
 
     @OnClick(R.id.btn_inicia_sesion)
-    public void onClickInicio(View view){
+    public void onClickInicio(){
         finish();
     }
 
     @OnClick(R.id.btn_registro)
-    public void onClickRegistro(View view){
+    public void onClickRegistro(){
         Utils.goToNextActivityCleanStack(this, DatosPersonalesActivity.class, false, null);
     }
 }

@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/White"
-    tools:context=".cliente.agendar.view.AgendarFragment">
+    tools:context=".cliente.agendar.view.TurnoFragment">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -31,8 +30,8 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="start|bottom"
-                    android:layout_weight="7"
-                    android:text="@string/agenda_cita_texto" />
+                    android:layout_weight="8"
+                    android:text="@string/selecciona_turno" />
 
                 <ImageView
                     android:layout_width="0dp"
@@ -41,26 +40,28 @@
                     android:src="@drawable/logo" />
             </LinearLayout>
 
-            <Spinner
-                android:id="@+id/spinner_especialistas"
+            <TextView
+                android:id="@+id/fecha_turno"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp" />
+                android:text="Jueves 1 de Noviembre"
+                android:textSize="20sp"
+                android:textStyle="bold"/>
 
-            <DatePicker
-                android:id="@+id/calendar"
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_marginTop="10dp"
+                android:id="@+id/recycler_turnos"
                 android:layout_width="match_parent"
-                android:layout_height="400dp"
-                android:layout_marginTop="30dp"
-                android:startYear="2020" />
+                android:layout_height="wrap_content"
+                />
+
 
             <TextView
+                android:id="@+id/confirmar_turno"
                 style="@style/ConfirmarText"
-                android:id="@+id/confirmar_fecha"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/confirmar_fecha"
-                />
+                android:text="@string/confirmar_fecha" />
         </LinearLayout>
     </RelativeLayout>
-</ScrollView>
+</androidx.core.widget.NestedScrollView>

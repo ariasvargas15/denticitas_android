@@ -25,7 +25,11 @@
         android:id="@+id/nav_agendar"
         android:name="com.amongusdev.denticitas.cliente.agendar.view.AgendarFragment"
         android:label="@string/menu_agendar"
-        tools:layout="@layout/fragment_agendar" />
+        tools:layout="@layout/fragment_agendar" >
+        <action
+            android:id="@+id/action_nav_agendar_to_nav_turno"
+            app:destination="@id/nav_turno" />
+    </fragment>
 
     <fragment
         android:id="@+id/nav_perfil"
@@ -33,6 +37,10 @@
         android:label="@string/menu_perfil"
         tools:layout="@layout/fragment_perfil" />
 
-
+    <fragment
+        android:id="@+id/nav_turno"
+        android:name="com.amongusdev.denticitas.cliente.agendar.view.TurnoFragment"
+        android:label="@string/menu_agendar"
+        tools:layout="@layout/fragment_turno"/>
 
 </navigation>
