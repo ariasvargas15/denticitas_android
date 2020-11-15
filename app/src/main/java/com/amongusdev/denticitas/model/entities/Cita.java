@@ -18,16 +18,13 @@ public class Cita implements Serializable {
     @SerializedName("id")
     @Expose
     private Integer id;
-    @SerializedName("create_time")
-    @Expose
-    private Date createTime;
-    @SerializedName("cliente")
+    @SerializedName("clienteCedula")
     @Expose
     private Cliente cliente;
-    @SerializedName("turno")
+    @SerializedName("turnoId")
     @Expose
     private Turno turno;
-    @SerializedName("servicio")
+    @SerializedName("servicioId")
     @Expose
     private Servicio servicio;
 

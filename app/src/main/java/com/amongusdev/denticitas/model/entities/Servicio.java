@@ -32,12 +32,4 @@ public class Servicio implements Serializable {
     @Expose
     private Area area;
 
-    public Servicio(String nombre, String descripcion, Integer precio, Area area) {
-        this.nombre = nombre;
-        this.descripcion = descripcion;
-        this.precio = precio;
-        this.area = area;
-    }
-
-
 }

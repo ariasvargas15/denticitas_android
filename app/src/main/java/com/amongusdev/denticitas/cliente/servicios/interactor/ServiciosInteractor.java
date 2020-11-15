@@ -36,7 +36,7 @@ public class ServiciosInteractor implements IServicios.Interactor, Callback<List
             if(servicios != null) {
                 presenter.mostrarServicios(servicios);
             } else {
-                Log.e("onResponseShowList", "Response is null");
+                Log.e("onResponseServicios", "Response is null");
             }
         }
     }

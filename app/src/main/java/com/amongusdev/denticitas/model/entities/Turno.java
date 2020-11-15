@@ -17,26 +17,17 @@ public class Turno implements Serializable {
     @SerializedName("id")
     @Expose
     private Integer id;
-    @SerializedName("hora_inicio")
+    @SerializedName("horaInicio")
     @Expose
-    private Date horaInicio;
+    private String horaInicio;
     @SerializedName("duracion")
     @Expose
     private Integer duracion;
     @SerializedName("estado")
     @Expose
     private Boolean estado;
-    @SerializedName("diaAgenda")
+    @SerializedName("diaAgendaId")
     @Expose
     private DiaAgenda diaAgenda;
-    @SerializedName("cita")
-    @Expose
-    private Cita cita;
 
-    public Turno(Integer id, Date horaInicio, Integer duracion, Boolean estado) {
-        this.id = id;
-        this.horaInicio = horaInicio;
-        this.duracion = duracion;
-        this.estado = estado;
-    }
 }

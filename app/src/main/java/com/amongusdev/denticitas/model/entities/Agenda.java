@@ -21,10 +21,10 @@ public class Agenda implements Serializable {
     @SerializedName("anio")
     @Expose
     private Integer anio;
-    @SerializedName("agendaId")
+    @SerializedName("diaAgendaList")
     @Expose
     private List<DiaAgenda> diaAgendaList;
-    @SerializedName("especialista_cedula")
+    @SerializedName("especialistaCedula")
     @Expose
-    private Especialista especialistaCedula;
+    private Especialista especialista;
 }

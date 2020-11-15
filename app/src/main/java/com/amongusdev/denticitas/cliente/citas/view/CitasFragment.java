@@ -15,6 +15,7 @@ import com.amongusdev.denticitas.cliente.citas.adapter.CitaAdapter;
 import com.amongusdev.denticitas.cliente.citas.interfaces.ICitas;
 import com.amongusdev.denticitas.cliente.citas.presenter.CitasPresenter;
 import com.amongusdev.denticitas.model.entities.Cita;
+import com.amongusdev.denticitas.utils.Utils;
 
 import java.util.ArrayList;
 
@@ -51,7 +52,8 @@ public class CitasFragment extends Fragment implements ICitas.View {
         View v = inflater.inflate(R.layout.fragment_citas, container, false);
         ButterKnife.bind(this, v);
         presenter = new CitasPresenter(this);
-        presenter.getCitas();
+        String cedula = Utils.getValuePreference(getContext(), "auth");
+        presenter.getCitas(cedula);
         return v;
     }
 

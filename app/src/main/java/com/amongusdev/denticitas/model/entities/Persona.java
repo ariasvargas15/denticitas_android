@@ -37,8 +37,6 @@ public class Persona implements Serializable {
     @SerializedName("password")
     @Expose
     private String password;
-    @SerializedName("createTime")
-    @Expose
-    private Date createTime;
+
 
 }

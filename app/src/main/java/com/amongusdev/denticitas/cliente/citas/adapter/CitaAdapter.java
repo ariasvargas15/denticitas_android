@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.amongusdev.denticitas.R;
 import com.amongusdev.denticitas.cliente.agendar.adapter.TurnoAdapter;
 import com.amongusdev.denticitas.model.entities.Cita;
+import com.amongusdev.denticitas.model.entities.Persona;
 import com.amongusdev.denticitas.utils.Utils;
 
 import java.util.ArrayList;
@@ -41,12 +42,15 @@ public class CitaAdapter extends RecyclerView.Adapter<CitaAdapter.CitaViewHolder
     @Override
     public void onBindViewHolder(@NonNull CitaViewHolder holder, int position) {
         Cita cita = citas.get(position);
-        holder.hora.setText("11:00 AM");
-        holder.fecha.setText(Utils.dateToString(getCalendar()));
-        holder.especialista.setText("Esp. Diana Romero");
-        holder.servicio.setText("Ortodoncia");
 
-        boolean res = citaPasada();
+        holder.servicio.setText(cita.getServicio().getNombre());
+        holder.especialista.setText(getNombreEspecialista(cita));
+        holder.hora.setText(Utils.convert24HourToAmPm(cita.getTurno().getHoraInicio()));
+
+        Calendar fechaCal = getCalendar(cita);
+        holder.fecha.setText(Utils.dateToString(fechaCal));
+
+        boolean res = citaPendiente(fechaCal);
         int drawable = res ? R.drawable.shape_card_cita : R.drawable.shape_card_cita_past;
         int color = res ? R.color.colorPrimary : R.color.White;
 
@@ -56,14 +60,23 @@ public class CitaAdapter extends RecyclerView.Adapter<CitaAdapter.CitaViewHolder
         holder.especialista.setTextColor(context.getResources().getColor(color, context.getTheme()));
     }
 
-    private Calendar getCalendar(){
-        //TODO
+    private String getNombreEspecialista(Cita cita){
+        Persona especialista = cita.getTurno().getDiaAgenda().getAgenda().getEspecialista().getPersona();
+        return  "Dr. " + especialista.getNombre() + " " + especialista.getApellido();
+    }
+
+    private Calendar getCalendar(Cita cita){
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.YEAR, cita.getTurno().getDiaAgenda().getAgenda().getAnio());
+        calendar.set(Calendar.MONTH, (cita.getTurno().getDiaAgenda().getAgenda().getMes() - 1));
+        calendar.set(Calendar.DATE, cita.getTurno().getDiaAgenda().getDia());
+        calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(cita.getTurno().getHoraInicio().substring(0,2)));
+        calendar.set(Calendar.MINUTE, Integer.parseInt(cita.getTurno().getHoraInicio().substring(2,4)));
         return Calendar.getInstance();
     }
 
-    private boolean citaPasada() {
-        //TODO
-        return new Random().nextBoolean();
+    private boolean citaPendiente(Calendar fechaCal) {
+        return Calendar.getInstance().before(fechaCal);
     }
 
     @Override

@@ -9,10 +9,10 @@ public interface ICitas {
         void setCitas(ArrayList<Cita> citas);
     }
     interface Presenter{
-        void getCitas();
+        void getCitas(String cedula);
         void setCitas(ArrayList<Cita> citas);
     }
     interface Interactor{
-        void getCitas();
+        void getCitas(String cedula);
     }
 }

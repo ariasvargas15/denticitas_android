@@ -19,7 +19,7 @@ public class TurnoInteractor implements ITurno.Interactor {
 
     @Override
     public void getTurnos() {
-        turnos.add(new Turno(1, new Date(2020, 11, 11, 8, 0), 30, true));
+       /* turnos.add(new Turno(1, new Date(2020, 11, 11, 8, 0), 30, true));
         turnos.add(new Turno(1, new Date(2020, 11, 11, 8, 30), 30, false));
         turnos.add(new Turno(1, new Date(2020, 11, 11, 9, 0), 30, true));
         turnos.add(new Turno(1, new Date(2020, 11, 11, 9, 30), 30, false));
@@ -39,7 +39,7 @@ public class TurnoInteractor implements ITurno.Interactor {
         turnos.add(new Turno(1, new Date(2020, 11, 11, 16, 30), 30, false));
         turnos.add(new Turno(1, new Date(2020, 11, 11, 17, 0), 30, false));
         turnos.add(new Turno(1, new Date(2020, 11, 11, 17, 30), 30, false));
-
+*/
         presenter.setTurnos(turnos);
     }
 }

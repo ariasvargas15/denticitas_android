@@ -17,8 +17,8 @@ public class CitasPresenter implements ICitas.Presenter {
     }
 
     @Override
-    public void getCitas() {
-        interactor.getCitas();
+    public void getCitas(String cedula) {
+        interactor.getCitas(cedula);
     }
 
     @Override

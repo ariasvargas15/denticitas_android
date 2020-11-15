@@ -41,7 +41,7 @@ public class TurnoAdapter extends RecyclerView.Adapter<TurnoAdapter.TurnoViewHol
     public void onBindViewHolder(@NonNull TurnoViewHolder holder, int position) {
         Turno turno = turnos.get(position);
 
-        holder.hora.setText(Utils.timeToString(turno.getHoraInicio()));
+        holder.hora.setText(turno.getHoraInicio());
 
         String text = turno.getEstado() ? "Agendar" : "Ocupado";
         int color = turno.getEstado() ?  R.color.colorPrimary : R.color.DarkGray;
