@@ -43,4 +43,10 @@
         android:label="@string/menu_agendar"
         tools:layout="@layout/fragment_turno"/>
 
+    <fragment
+        android:id="@+id/nav_logout"
+        android:name="com.amongusdev.denticitas.cliente.auth.view.LogoutFragment"
+        tools:layout="@layout/fragment_blank"
+        />
+
 </navigation>

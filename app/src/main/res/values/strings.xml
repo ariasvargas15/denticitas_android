@@ -48,4 +48,5 @@
     <string name="cancel_text">Cancelar</string>
     <string name="confirmar_fecha">Confirmar</string>
     <string name="selecciona_turno">Seleccionar turno</string>
+    <string name="pref_key">DENTICITAS-SEM-INTEGRADOR</string>
 </resources>

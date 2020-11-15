@@ -2,7 +2,9 @@ package com.amongusdev.denticitas;
 
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.MenuItem;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.Toolbar;
@@ -12,7 +14,11 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import com.amongusdev.denticitas.cliente.auth.view.LoginActivity;
+import com.amongusdev.denticitas.utils.Utils;
 import com.google.android.material.navigation.NavigationView;
+
+import butterknife.OnClick;
 
 public class DashboardActivity extends AppCompatActivity {
 
@@ -29,7 +35,7 @@ public class DashboardActivity extends AppCompatActivity {
         NavigationView navigationView = findViewById(R.id.nav_view);
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
-        mAppBarConfiguration = new AppBarConfiguration.Builder(R.id.nav_servicios, R.id.nav_citas)
+        mAppBarConfiguration = new AppBarConfiguration.Builder(R.id.nav_servicios, R.id.nav_citas, R.id.nav_logout)
                 .setDrawerLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
@@ -50,4 +56,6 @@ public class DashboardActivity extends AppCompatActivity {
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
     }
+
+
 }
