@@ -44,6 +44,9 @@
     <string name="ocupacion_text">Ocupación</string>
     <string name="data_button">Completar</string>
     <string name="agenda_cita_texto">Agenda tu cita</string>
-    <string name="ok_text">Confirmar</string>
+    <string name="ok_text">Siguiente</string>
     <string name="cancel_text">Cancelar</string>
+    <string name="confirmar_fecha">Confirmar</string>
+    <string name="selecciona_turno">Seleccionar turno</string>
+    <string name="pref_key">DENTICITAS-SEM-INTEGRADOR</string>
 </resources>
