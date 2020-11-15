@@ -1,18 +1,13 @@
 package com.amongusdev.denticitas.cliente.auth.interactor;
 
 import android.content.Context;
-import android.net.DnsResolver;
 import android.util.Log;
 
 import com.amongusdev.denticitas.cliente.auth.interfaces.ILogin;
 import com.amongusdev.denticitas.model.apiservice.ApiAdapter;
-import com.amongusdev.denticitas.model.entities.Cliente;
-import com.amongusdev.denticitas.model.entities.GenericResponse;
-import com.amongusdev.denticitas.model.entities.LoginBody;
+import com.amongusdev.denticitas.model.apiservice.bodies.GenericResponse;
+import com.amongusdev.denticitas.model.apiservice.bodies.LoginBody;
 import com.amongusdev.denticitas.utils.Utils;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;

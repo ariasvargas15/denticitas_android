@@ -26,7 +26,7 @@ public class ApiAdapter {
         if (apiService == null) {
             Retrofit retrofit = new Retrofit.Builder()
                     .baseUrl(BASE_URL)
-                    .addConverterFactory(GsonConverterFactory.create())
+                    .addConverterFactory(GsonConverterFactory.create(gson))
                     .client(httpClient.build())
                     .build();
             apiService = retrofit.create(ApiService.class);

@@ -5,8 +5,8 @@ import android.util.Log;
 
 import com.amongusdev.denticitas.cliente.auth.interfaces.IRegistro;
 import com.amongusdev.denticitas.model.apiservice.ApiAdapter;
-import com.amongusdev.denticitas.model.entities.GenericResponse;
-import com.amongusdev.denticitas.model.entities.LoginBody;
+import com.amongusdev.denticitas.model.apiservice.bodies.GenericResponse;
+import com.amongusdev.denticitas.model.apiservice.bodies.LoginBody;
 import com.amongusdev.denticitas.utils.Utils;
 
 import retrofit2.Call;
@@ -45,12 +45,12 @@ public class RegistroInteractor implements IRegistro.Interactor, Callback<Generi
                 this.presenter.confirmarRegistro(r);
             }
         } else {
-            Log.e("login", response.message() + "\n" + response.toString());
+            Log.e("registro", response.message() + "\n" + response.toString());
         }
     }
 
     @Override
     public void onFailure(Call<GenericResponse> call, Throwable t) {
-        Log.e("LoginError", call.toString());
+        Log.e("RegistroError", call.toString());
     }
 }

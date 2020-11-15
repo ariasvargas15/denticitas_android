@@ -1,12 +1,14 @@
-package com.amongusdev.denticitas.model.entities;
+package com.amongusdev.denticitas.model.apiservice.bodies;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
+
 import lombok.Data;
 
 @Data
-public class GenericResponse {
+public class GenericResponse implements Serializable {
     @SerializedName("message")
     @Expose
     private String message;
