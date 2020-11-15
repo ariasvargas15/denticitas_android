@@ -11,7 +11,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:id="@+id/registro">
 
         <ImageView
             android:layout_width="match_parent"
@@ -53,7 +54,7 @@
                 app:startIconDrawable="@drawable/ic_person">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/input_cedula_registrp"
+                    android:id="@+id/input_cedula_registro"
                     style="@style/InputEditTextWhite"
                     android:importantForAutofill="no"
                     android:inputType="number" />
