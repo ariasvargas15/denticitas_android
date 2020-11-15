@@ -22,8 +22,4 @@ public class Area implements Serializable {
     @SerializedName("descripcion")
     @Expose
     private String descripcion;
-    @SerializedName("especialistaList")
-    @Expose
-    private List<Object> especialistaList = null;
-
 }

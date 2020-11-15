@@ -7,8 +7,10 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
+import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,6 +24,8 @@ import com.amongusdev.denticitas.cliente.servicios.presenter.ServiciosPresenter;
 import com.amongusdev.denticitas.model.entities.Servicio;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Random;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -31,8 +35,11 @@ public class ServiciosFragment extends Fragment implements IServicios.View, OnCl
 
     @BindView(R.id.recycler_servicios)
     RecyclerView recyclerView;
+    @BindView(R.id.swipe_refresh_servicios)
+    SwipeRefreshLayout mSwipeRefreshLayout;
 
     NavController navController;
+    ServicioAdapter adapter;
 
     private IServicios.Presenter presenter;
 
@@ -48,7 +55,20 @@ public class ServiciosFragment extends Fragment implements IServicios.View, OnCl
 
         presenter = new ServiciosPresenter(this);
         presenter.buscarServicios();
+        setSwipe();
+
         return v;
+    }
+
+    private void setSwipe() {
+        mSwipeRefreshLayout.setColorSchemeResources(R.color.colorAccent);
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                presenter.buscarServicios();
+                mSwipeRefreshLayout.setRefreshing(false);
+            }
+        });
     }
 
     @Override
@@ -62,7 +82,7 @@ public class ServiciosFragment extends Fragment implements IServicios.View, OnCl
         LinearLayoutManager lm = new LinearLayoutManager(getContext());
         lm.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(lm);
-        ServicioAdapter adapter = new ServicioAdapter(servicios);
+        adapter = new ServicioAdapter(servicios);
         adapter.setOnClick(this);
         recyclerView.setAdapter(adapter);
 
@@ -73,3 +93,4 @@ public class ServiciosFragment extends Fragment implements IServicios.View, OnCl
         navController.navigate(R.id.action_nav_servicios_to_nav_agendar);
     }
 }
+
