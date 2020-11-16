@@ -2,6 +2,7 @@ package com.amongusdev.denticitas.cliente.auth.view;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -17,6 +18,7 @@ import com.google.android.material.textfield.TextInputEditText;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import dmax.dialog.SpotsDialog;
 
 public class RegistroActivity extends AppCompatActivity implements IRegistro.View {
 
@@ -31,6 +33,7 @@ public class RegistroActivity extends AppCompatActivity implements IRegistro.Vie
     LinearLayout registro;
 
     IRegistro.Presenter presenter;
+    AlertDialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +53,10 @@ public class RegistroActivity extends AppCompatActivity implements IRegistro.Vie
         if (cedula.getText()!=null && password.getText()!=null && confirmar.getText()!= null
                 && !cedula.getText().toString().isEmpty() && !password.getText().toString().isEmpty() && !confirmar.getText().toString().isEmpty()){
             if (password.getText().toString().equals(confirmar.getText().toString())){
+                SpotsDialog.Builder sp = new SpotsDialog.Builder();
+                sp.setContext(RegistroActivity.this).setCancelable(false).setMessage("Loading...");
+                dialog = sp.build();
+                dialog.show();
                 presenter.registrarse(cedula.getText().toString(), password.getText().toString(), "cliente");
             } else {
                 Snackbar.make(registro, "Las contraseñas no coinciden", Snackbar.LENGTH_SHORT).show();
@@ -61,6 +68,7 @@ public class RegistroActivity extends AppCompatActivity implements IRegistro.Vie
 
     @Override
     public void confirmarRegistro(boolean bool) {
+        dialog.dismiss();
         if (bool){
             Utils.goToNextActivityCleanStack(this, DatosPersonalesActivity.class, true, null);
         } else {

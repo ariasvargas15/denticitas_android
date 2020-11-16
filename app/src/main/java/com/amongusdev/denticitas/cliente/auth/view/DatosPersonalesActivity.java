@@ -1,5 +1,6 @@
 package com.amongusdev.denticitas.cliente.auth.view;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.util.Patterns;
@@ -24,6 +25,7 @@ import java.util.regex.Pattern;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import dmax.dialog.SpotsDialog;
 
 public class DatosPersonalesActivity extends AppCompatActivity implements IDatosPersonales.View {
 
@@ -46,6 +48,7 @@ public class DatosPersonalesActivity extends AppCompatActivity implements IDatos
 
     IDatosPersonales.Presenter presenter;
     Calendar myCalendar = Calendar.getInstance();
+    AlertDialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +70,10 @@ public class DatosPersonalesActivity extends AppCompatActivity implements IDatos
             String direccion = this.direccion.getText().toString();
             String email = this.email.getText().toString();
             String ocupacion = this.ocupacion.getText().toString();
+            SpotsDialog.Builder sp = new SpotsDialog.Builder();
+            sp.setContext(DatosPersonalesActivity.this).setCancelable(false).setMessage("Loading...");
+            dialog = sp.build();
+            dialog.show();
             presenter.setDatosPersonales(cedula, nombre, apellido, fecha, telefono, direccion, email, ocupacion);
         }
     }
@@ -116,6 +123,7 @@ public class DatosPersonalesActivity extends AppCompatActivity implements IDatos
 
     @Override
     public void showResponse(boolean success) {
+        dialog.dismiss();
         if (success){
             Utils.goToNextActivityCleanStack(this, DashboardActivity.class, true, null);
         }
