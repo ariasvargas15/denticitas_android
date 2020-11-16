@@ -90,7 +90,9 @@ public class ServiciosFragment extends Fragment implements IServicios.View, OnCl
 
     @Override
     public void onClickAgendarServicio(Servicio servicio) {
-        navController.navigate(R.id.action_nav_servicios_to_nav_agendar);
+        Bundle b = new Bundle();
+        b.putSerializable("servicio", servicio);
+        navController.navigate(R.id.action_nav_servicios_to_nav_agendar, b);
     }
 }
 

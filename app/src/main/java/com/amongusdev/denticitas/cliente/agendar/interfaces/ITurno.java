@@ -6,13 +6,13 @@ import java.util.ArrayList;
 
 public interface ITurno {
     interface View {
-        void setTurnos(ArrayList<Turno> turnos);
+        void success(boolean success);
     }
     interface Presenter{
-        void setTurnos(ArrayList<Turno> turnos);
-        void getTurnos();
+        void success(boolean success);
+        void createCita(String cedula, int servicio, int turno);
     }
     interface Interactor{
-        void getTurnos();
+        void createCita(String cedula, int servicio, int turno);
     }
 }

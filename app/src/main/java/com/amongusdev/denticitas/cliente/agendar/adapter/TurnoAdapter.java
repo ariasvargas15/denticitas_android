@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.amongusdev.denticitas.R;
+import com.amongusdev.denticitas.cliente.agendar.interfaces.OnClickListenerCita;
 import com.amongusdev.denticitas.cliente.servicios.adapter.ServicioAdapter;
 import com.amongusdev.denticitas.model.entities.Turno;
 import com.amongusdev.denticitas.utils.Utils;
@@ -25,6 +26,7 @@ public class TurnoAdapter extends RecyclerView.Adapter<TurnoAdapter.TurnoViewHol
 
     ArrayList<Turno> turnos;
     Context context;
+    OnClickListenerCita onClick;
 
     public TurnoAdapter(ArrayList<Turno> turnos, Context context) {
         this.turnos = turnos;
@@ -41,18 +43,20 @@ public class TurnoAdapter extends RecyclerView.Adapter<TurnoAdapter.TurnoViewHol
     public void onBindViewHolder(@NonNull TurnoViewHolder holder, int position) {
         Turno turno = turnos.get(position);
 
-        holder.hora.setText(turno.getHoraInicio());
+        String h = Utils.convert24HourToAmPm(turno.getHoraInicio());
+        holder.hora.setText(h);
 
-        String text = turno.getEstado() ? "Agendar" : "Ocupado";
-        int color = turno.getEstado() ?  R.color.colorPrimary : R.color.DarkGray;
+        String text = !turno.getEstado() ? "Agendar" : "Ocupado";
+        int color = !turno.getEstado() ?  R.color.colorPrimary : R.color.DarkGray;
 
         holder.estado.setText(text);
         holder.estado.setBackgroundColor(context.getResources().getColor(color, context.getTheme()));
-        holder.estado.setEnabled(turno.getEstado());
+        holder.estado.setEnabled(!turno.getEstado());
 
         holder.estado.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                onClick.crearCita(turno.getId());
                 holder.estado.setEnabled(false);
                 holder.estado.setText("Cita Agendada :)");
                 holder.estado.setBackgroundColor(context.getResources().getColor(R.color.Green, context.getTheme()));
@@ -66,6 +70,10 @@ public class TurnoAdapter extends RecyclerView.Adapter<TurnoAdapter.TurnoViewHol
         return turnos.size();
     }
 
+    public void setOnClick(OnClickListenerCita onClick){
+        this.onClick = onClick;
+    }
+
     class TurnoViewHolder extends RecyclerView.ViewHolder {
 
         @BindView(R.id.estado_turno)
@@ -76,6 +84,7 @@ public class TurnoAdapter extends RecyclerView.Adapter<TurnoAdapter.TurnoViewHol
         public TurnoViewHolder(@NonNull View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
+
         }
     }
 }

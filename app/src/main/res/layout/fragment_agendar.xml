@@ -18,7 +18,8 @@
             android:layout_height="match_parent"
             android:layout_marginHorizontal="30dp"
             android:layout_marginTop="10dp"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:gravity="">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -44,15 +45,30 @@
             <Spinner
                 android:id="@+id/spinner_especialistas"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp" />
+                android:layout_height="50dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp" />
 
-            <DatePicker
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/InputTextWhite"
+                android:hint="@string/selecciona_fecha"
+                app:startIconDrawable="@drawable/ic_calendar">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/input_fecha"
+                    style="@style/InputEditTextWhite"
+                    android:importantForAutofill="no"
+                    android:inputType="date"
+                    android:focusableInTouchMode="false"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <!--<DatePicker
                 android:id="@+id/calendar"
                 android:layout_width="match_parent"
                 android:layout_height="400dp"
                 android:layout_marginTop="30dp"
-                android:startYear="2020" />
+                android:startYear="2020" />-->
 
             <TextView
                 style="@style/ConfirmarText"

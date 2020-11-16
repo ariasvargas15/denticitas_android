@@ -16,20 +16,44 @@ import androidx.navigation.Navigation;
 
 import com.amongusdev.denticitas.R;
 import com.amongusdev.denticitas.cliente.agendar.interfaces.IAgendar;
+import com.amongusdev.denticitas.cliente.agendar.presenter.AgendarPresenter;
+import com.amongusdev.denticitas.model.entities.Agenda;
+import com.amongusdev.denticitas.model.entities.DiaAgenda;
+import com.amongusdev.denticitas.model.entities.Especialista;
+import com.amongusdev.denticitas.model.entities.Servicio;
+import com.google.android.material.textfield.TextInputEditText;
+import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
+import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class AgendarFragment extends Fragment implements IAgendar.View, AdapterView.OnItemSelectedListener {
+public class AgendarFragment extends Fragment implements IAgendar.View, AdapterView.OnItemSelectedListener, DatePickerDialog.OnDateSetListener {
 
 
     @BindView(R.id.spinner_especialistas)
-    Spinner especialistas;
+    Spinner spinner;
+    @BindView(R.id.input_fecha)
+    TextInputEditText fecha;
 
+
+    IAgendar.Presenter presenter;
     NavController navController;
+    String arg1 = "servicio";
+    Servicio servicio;
+    ArrayList<Especialista> especialistas;
+    Calendar myCalendar = Calendar.getInstance();
+    ArrayList<Calendar> diasHabiles = new ArrayList<>();
+    ArrayList<Agenda> agenda;
+    DiaAgenda diaAgenda;
 
     public AgendarFragment() {
         // Required empty public constructor
@@ -39,6 +63,7 @@ public class AgendarFragment extends Fragment implements IAgendar.View, AdapterV
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
+            servicio = (Servicio) getArguments().getSerializable(arg1);
         }
     }
 
@@ -47,14 +72,13 @@ public class AgendarFragment extends Fragment implements IAgendar.View, AdapterV
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_agendar, container, false);
         ButterKnife.bind(this, v);
+        presenter = new AgendarPresenter(this);
 
-        especialistas.setOnItemSelectedListener(this);
+        presenter.getEspecialistas(servicio.getArea().getId());
+        spinner.setOnItemSelectedListener(this);
+
         //Convierto la variable List<> en un ArrayList<>()
-        ArrayList<String> array = new ArrayList<>();
-        array.add("Especialista 1");
-        array.add("Especialista 2");
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, array);
-        especialistas.setAdapter(adapter);
+
         return v;
     }
 
@@ -65,16 +89,105 @@ public class AgendarFragment extends Fragment implements IAgendar.View, AdapterV
     }
 
     @OnClick(R.id.confirmar_fecha)
-    public void confirmarFecha(){
-        navController.navigate(R.id.action_nav_agendar_to_nav_turno);
+    public void confirmarFecha() {
+        getDiaAgenda();
+        Bundle b = new Bundle();
+        b.putSerializable("servicio", servicio);
+        b.putSerializable("agenda", diaAgenda);
+        navController.navigate(R.id.action_nav_agendar_to_nav_turno, b);
     }
+
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
+        fecha.setText("");
+        fecha.setEnabled(true);
+        presenter.getAgendas(especialistas.get(position).getCedula());
     }
 
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
 
+    }
+
+    @Override
+    public void setEspecialistas(ArrayList<Especialista> especialistas) {
+        this.especialistas = especialistas;
+        ArrayList<String> array = new ArrayList<>();
+        for (Especialista e : especialistas){
+            array.add(e.getPersona().getNombre() + " " + e.getPersona().getApellido());
+        }
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, array);
+        this.spinner.setAdapter(adapter);
+    }
+
+    @Override
+    public void setAgendas(ArrayList<Agenda> agendas) {
+        this.agenda = agendas;
+        diasHabiles = new ArrayList<>();
+        for (Agenda a : agendas){
+            for (DiaAgenda d : a.getDiaAgendaList()){
+                diasHabiles.add(setDate(a.getAnio(), a.getMes(), d.getDia()));
+            }
+        }
+        if (diasHabiles.isEmpty()){
+            fecha.setEnabled(false);
+        }
+    }
+
+    private Calendar setDate(int year, int month, int day){
+        Calendar c = Calendar.getInstance();
+        c.set(Calendar.YEAR, year);
+        c.set(Calendar.MONTH, month);
+        c.set(Calendar.DATE, day);
+        return c;
+    }
+
+    @OnClick(R.id.input_fecha)
+    public void onClickFecha(){
+        showDatePicker();
+    }
+
+    private void updateLabel() {
+        String myFormat = "dd/MM/yyyy";
+        SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.UK);
+        fecha.setText(sdf.format(myCalendar.getTime()));
+    }
+
+    private void showDatePicker() {
+
+        Calendar calendar = Calendar.getInstance();
+
+        DatePickerDialog dpd = DatePickerDialog.newInstance(
+                this,
+                calendar.get(Calendar.YEAR),
+                calendar.get(Calendar.MONTH),
+                calendar.get(Calendar.DAY_OF_MONTH)
+        );
+        dpd.show(getParentFragmentManager(), "DatePickerDialog");
+        Calendar[] d = diasHabiles.toArray(new Calendar[diasHabiles.size()]);
+        dpd.setSelectableDays(d);
+
+    }
+
+
+    @Override
+    public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
+            myCalendar.set(Calendar.YEAR, year);
+            myCalendar.set(Calendar.MONTH, monthOfYear);
+            myCalendar.set(Calendar.DATE, dayOfMonth);
+            updateLabel();
+    }
+
+    private void getDiaAgenda(){
+        for (Agenda a : agenda){
+            for (DiaAgenda d : a.getDiaAgendaList()){
+                if (a.getAnio() == myCalendar.get(Calendar.YEAR)
+                && a.getMes() == myCalendar.get(Calendar.MONTH)
+                && d.getDia() == myCalendar.get(Calendar.DATE)){
+                    diaAgenda = d;
+                    break;
+                }
+            }
+        }
     }
 }

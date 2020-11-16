@@ -18,13 +18,14 @@ public class TurnoPresenter implements ITurno.Presenter {
         interactor = new TurnoInteractor(this);
     }
 
+
     @Override
-    public void setTurnos(ArrayList<Turno> turnos) {
-        view.setTurnos(turnos);
+    public void success(boolean success) {
+        view.success(success);
     }
 
     @Override
-    public void getTurnos() {
-        interactor.getTurnos();
+    public void createCita(String cedula, int servicio, int turno) {
+        interactor.createCita(cedula, servicio, turno);
     }
 }

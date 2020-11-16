@@ -1,13 +1,23 @@
 package com.amongusdev.denticitas.cliente.agendar.interactor;
 
+import android.util.Log;
+
 import com.amongusdev.denticitas.cliente.agendar.interfaces.ITurno;
+import com.amongusdev.denticitas.model.apiservice.ApiAdapter;
+import com.amongusdev.denticitas.model.apiservice.bodies.CitaBody;
+import com.amongusdev.denticitas.model.apiservice.bodies.GenericResponse;
 import com.amongusdev.denticitas.model.entities.Turno;
+import com.amongusdev.denticitas.utils.Utils;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
-public class TurnoInteractor implements ITurno.Interactor {
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+public class TurnoInteractor implements ITurno.Interactor, Callback<GenericResponse> {
 
     ITurno.Presenter presenter;
     ArrayList<Turno> turnos;
@@ -18,28 +28,29 @@ public class TurnoInteractor implements ITurno.Interactor {
     }
 
     @Override
-    public void getTurnos() {
-       /* turnos.add(new Turno(1, new Date(2020, 11, 11, 8, 0), 30, true));
-        turnos.add(new Turno(1, new Date(2020, 11, 11, 8, 30), 30, false));
-        turnos.add(new Turno(1, new Date(2020, 11, 11, 9, 0), 30, true));
-        turnos.add(new Turno(1, new Date(2020, 11, 11, 9, 30), 30, false));
-        turnos.add(new Turno(1, new Date(2020, 11, 11, 10, 0), 30, true));
-        turnos.add(new Turno(1, new Date(2020, 11, 11, 10, 30), 30, false));
-        turnos.add(new Turno(1, new Date(2020, 11, 11, 11, 0), 30, true));
-        turnos.add(new Turno(1, new Date(2020, 11, 11, 11, 30), 30, true));
-        turnos.add(new Turno(1, new Date(2020, 11, 11, 12, 0), 30, true));
-        turnos.add(new Turno(1, new Date(2020, 11, 11, 12, 30), 30, false));
-        turnos.add(new Turno(1, new Date(2020, 11, 11, 13, 0), 30, false));
-        turnos.add(new Turno(1, new Date(2020, 11, 11, 13, 30), 30, false));
-        turnos.add(new Turno(1, new Date(2020, 11, 11, 14, 0), 30, false));
-        turnos.add(new Turno(1, new Date(2020, 11, 11, 14, 30), 30, false));
-        turnos.add(new Turno(1, new Date(2020, 11, 11, 15, 0), 30, false));
-        turnos.add(new Turno(1, new Date(2020, 11, 11, 15, 30), 30, false));
-        turnos.add(new Turno(1, new Date(2020, 11, 11, 16, 0), 30, false));
-        turnos.add(new Turno(1, new Date(2020, 11, 11, 16, 30), 30, false));
-        turnos.add(new Turno(1, new Date(2020, 11, 11, 17, 0), 30, false));
-        turnos.add(new Turno(1, new Date(2020, 11, 11, 17, 30), 30, false));
-*/
-        presenter.setTurnos(turnos);
+    public void createCita(String cedula, int servicio, int turno) {
+        CitaBody citaBody = new CitaBody(cedula, servicio, turno, null);
+        Call<GenericResponse> call = ApiAdapter.getApiService().createCita(citaBody);
+        call.enqueue(this);
+    }
+
+    @Override
+    public void onResponse(Call<GenericResponse> call, Response<GenericResponse> response) {
+        if (response.isSuccessful()) {
+            GenericResponse res = response.body();
+            if (res != null){
+                boolean r;
+                r = res.getMessage().equals("success");
+                this.presenter.success(r);
+            }
+        } else {
+            Log.e("cita", response.message() + "\n" + response.toString());
+        }
+    }
+
+    @Override
+    public void onFailure(Call<GenericResponse> call, Throwable t) {
+        Log.e("CitaError", call.toString());
+
     }
 }

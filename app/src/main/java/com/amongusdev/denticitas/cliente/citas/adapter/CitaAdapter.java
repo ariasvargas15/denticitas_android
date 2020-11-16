@@ -1,6 +1,7 @@
 package com.amongusdev.denticitas.cliente.citas.adapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -72,7 +73,7 @@ public class CitaAdapter extends RecyclerView.Adapter<CitaAdapter.CitaViewHolder
         calendar.set(Calendar.DATE, cita.getTurno().getDiaAgenda().getDia());
         calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(cita.getTurno().getHoraInicio().substring(0,2)));
         calendar.set(Calendar.MINUTE, Integer.parseInt(cita.getTurno().getHoraInicio().substring(2,4)));
-        return Calendar.getInstance();
+        return calendar;
     }
 
     private boolean citaPendiente(Calendar fechaCal) {

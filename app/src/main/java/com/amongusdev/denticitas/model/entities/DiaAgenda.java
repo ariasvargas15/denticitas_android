@@ -21,4 +21,7 @@ public class DiaAgenda implements Serializable {
     @SerializedName("agendaId")
     @Expose
     private Agenda agenda;
+    @SerializedName("turnoList")
+    @Expose
+    private List<Turno> turnos;
 }
