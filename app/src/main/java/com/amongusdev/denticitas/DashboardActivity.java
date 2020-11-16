@@ -57,5 +57,7 @@ public class DashboardActivity extends AppCompatActivity {
                 || super.onSupportNavigateUp();
     }
 
-
+    @Override
+    public void onBackPressed() {
+    }
 }

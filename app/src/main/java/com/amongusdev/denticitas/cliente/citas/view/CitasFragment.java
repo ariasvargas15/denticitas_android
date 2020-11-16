@@ -1,5 +1,6 @@
 package com.amongusdev.denticitas.cliente.citas.view;
 
+import android.app.AlertDialog;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -21,6 +22,7 @@ import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import dmax.dialog.SpotsDialog;
 
 public class CitasFragment extends Fragment implements ICitas.View {
 
@@ -32,6 +34,7 @@ public class CitasFragment extends Fragment implements ICitas.View {
     RecyclerView recycler;
 
     ICitas.Presenter presenter;
+    AlertDialog dialog;
 
     public CitasFragment() {
         // Required empty public constructor
@@ -53,6 +56,10 @@ public class CitasFragment extends Fragment implements ICitas.View {
         ButterKnife.bind(this, v);
         presenter = new CitasPresenter(this);
         String cedula = Utils.getValuePreference(getContext(), "auth");
+        SpotsDialog.Builder sp = new SpotsDialog.Builder();
+        sp.setContext(getContext()).setCancelable(false).setMessage("Loading...");
+        dialog = sp.build();
+        dialog.show();
         presenter.getCitas(cedula);
         return v;
     }
@@ -64,5 +71,6 @@ public class CitasFragment extends Fragment implements ICitas.View {
         LinearLayoutManager lm = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         recycler.setLayoutManager(lm);
         recycler.setAdapter(adapter);
+        dialog.dismiss();
     }
 }

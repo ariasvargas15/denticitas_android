@@ -3,6 +3,7 @@ package com.amongusdev.denticitas.cliente.auth.view;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 
+import android.app.AlertDialog;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -20,6 +21,7 @@ import com.google.android.material.textfield.TextInputEditText;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import dmax.dialog.SpotsDialog;
 
 public class LoginActivity extends AppCompatActivity implements ILogin.View {
 
@@ -29,7 +31,7 @@ public class LoginActivity extends AppCompatActivity implements ILogin.View {
     TextInputEditText password;
     @BindView(R.id.login)
     LinearLayout login;
-
+    private AlertDialog dialog;
     ILogin.Presenter presenter;
 
     @Override
@@ -51,6 +53,10 @@ public class LoginActivity extends AppCompatActivity implements ILogin.View {
     @OnClick(R.id.btn_login)
     public void onClickLogin(){
         if (cedula.getText()!=null && password.getText()!=null && !cedula.getText().toString().isEmpty() && !password.getText().toString().isEmpty()){
+            SpotsDialog.Builder sp = new SpotsDialog.Builder();
+            sp.setContext(LoginActivity.this).setCancelable(false).setMessage("Loading...");
+            dialog = sp.build();
+            dialog.show();
             presenter.validateData(cedula.getText().toString(), password.getText().toString(), "cliente");
         } else {
             Snackbar.make(login, "Digite los datos correctamente", Snackbar.LENGTH_SHORT).show();
@@ -65,6 +71,7 @@ public class LoginActivity extends AppCompatActivity implements ILogin.View {
 
     @Override
     public void sendResponse(boolean successful) {
+        dialog.dismiss();
         if (successful){
             Utils.goToNextActivityCleanStack(this, DashboardActivity.class, true, null);
         } else {

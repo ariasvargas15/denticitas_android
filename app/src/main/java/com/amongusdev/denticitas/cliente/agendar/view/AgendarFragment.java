@@ -1,5 +1,6 @@
 package com.amongusdev.denticitas.cliente.agendar.view;
 
+import android.app.AlertDialog;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,13 +15,16 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
+import com.amongusdev.denticitas.DashboardActivity;
 import com.amongusdev.denticitas.R;
 import com.amongusdev.denticitas.cliente.agendar.interfaces.IAgendar;
 import com.amongusdev.denticitas.cliente.agendar.presenter.AgendarPresenter;
+import com.amongusdev.denticitas.cliente.auth.view.LoginActivity;
 import com.amongusdev.denticitas.model.entities.Agenda;
 import com.amongusdev.denticitas.model.entities.DiaAgenda;
 import com.amongusdev.denticitas.model.entities.Especialista;
 import com.amongusdev.denticitas.model.entities.Servicio;
+import com.amongusdev.denticitas.utils.Utils;
 import com.google.android.material.textfield.TextInputEditText;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
@@ -35,6 +39,7 @@ import java.util.Locale;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import dmax.dialog.SpotsDialog;
 
 public class AgendarFragment extends Fragment implements IAgendar.View, AdapterView.OnItemSelectedListener, DatePickerDialog.OnDateSetListener {
 
@@ -54,7 +59,7 @@ public class AgendarFragment extends Fragment implements IAgendar.View, AdapterV
     ArrayList<Calendar> diasHabiles = new ArrayList<>();
     ArrayList<Agenda> agenda;
     DiaAgenda diaAgenda;
-
+    AlertDialog dialog;
     public AgendarFragment() {
         // Required empty public constructor
     }
@@ -73,7 +78,10 @@ public class AgendarFragment extends Fragment implements IAgendar.View, AdapterV
         View v = inflater.inflate(R.layout.fragment_agendar, container, false);
         ButterKnife.bind(this, v);
         presenter = new AgendarPresenter(this);
-
+        SpotsDialog.Builder sp = new SpotsDialog.Builder();
+        sp.setContext(getContext()).setCancelable(false).setMessage("Loading...");
+        dialog = sp.build();
+        dialog.show();
         presenter.getEspecialistas(servicio.getArea().getId());
         spinner.setOnItemSelectedListener(this);
 
@@ -101,6 +109,7 @@ public class AgendarFragment extends Fragment implements IAgendar.View, AdapterV
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         fecha.setText("");
         fecha.setEnabled(true);
+        dialog.show();
         presenter.getAgendas(especialistas.get(position).getCedula());
     }
 
@@ -118,6 +127,7 @@ public class AgendarFragment extends Fragment implements IAgendar.View, AdapterV
         }
         ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, array);
         this.spinner.setAdapter(adapter);
+        dialog.dismiss();
     }
 
     @Override
@@ -132,6 +142,7 @@ public class AgendarFragment extends Fragment implements IAgendar.View, AdapterV
         if (diasHabiles.isEmpty()){
             fecha.setEnabled(false);
         }
+        dialog.dismiss();
     }
 
     private Calendar setDate(int year, int month, int day){
@@ -190,4 +201,6 @@ public class AgendarFragment extends Fragment implements IAgendar.View, AdapterV
             }
         }
     }
+
+
 }

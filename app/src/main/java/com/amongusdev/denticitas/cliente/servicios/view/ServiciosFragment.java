@@ -1,5 +1,6 @@
 package com.amongusdev.denticitas.cliente.servicios.view;
 
+import android.app.AlertDialog;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -17,6 +18,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.amongusdev.denticitas.R;
+import com.amongusdev.denticitas.cliente.auth.view.LoginActivity;
 import com.amongusdev.denticitas.cliente.servicios.adapter.ServicioAdapter;
 import com.amongusdev.denticitas.cliente.servicios.interfaces.IServicios;
 import com.amongusdev.denticitas.cliente.servicios.interfaces.OnClickListenerServicio;
@@ -29,6 +31,7 @@ import java.util.Random;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import dmax.dialog.SpotsDialog;
 
 public class ServiciosFragment extends Fragment implements IServicios.View, OnClickListenerServicio {
 
@@ -40,6 +43,7 @@ public class ServiciosFragment extends Fragment implements IServicios.View, OnCl
 
     NavController navController;
     ServicioAdapter adapter;
+    private AlertDialog dialog;
 
     private IServicios.Presenter presenter;
 
@@ -54,6 +58,10 @@ public class ServiciosFragment extends Fragment implements IServicios.View, OnCl
         ButterKnife.bind(this, v);
 
         presenter = new ServiciosPresenter(this);
+        SpotsDialog.Builder sp = new SpotsDialog.Builder();
+        sp.setContext(getContext()).setCancelable(false).setMessage("Loading...");
+        dialog = sp.build();
+        dialog.show();
         presenter.buscarServicios();
         setSwipe();
 
@@ -85,7 +93,7 @@ public class ServiciosFragment extends Fragment implements IServicios.View, OnCl
         adapter = new ServicioAdapter(servicios);
         adapter.setOnClick(this);
         recyclerView.setAdapter(adapter);
-
+        dialog.dismiss();
     }
 
     @Override

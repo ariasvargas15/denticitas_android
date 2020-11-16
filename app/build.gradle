@@ -42,8 +42,8 @@ dependencies {
     implementation 'de.hdodenhof:circleimageview:3.0.0'
 
     //Retrofit
-    implementation 'com.squareup.retrofit2:retrofit:2.3.0'
-    implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
+    implementation 'com.squareup.retrofit2:retrofit:2.4.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
     implementation 'com.squareup.okhttp3:logging-interceptor:3.9.1'
 
     //Material Design
@@ -66,6 +66,10 @@ dependencies {
     implementation 'org.projectlombok:lombok:1.18.16'
     annotationProcessor 'org.projectlombok:lombok:1.18.16'
 
+    //Dialog
+    implementation 'com.github.d-max:spots-dialog:1.1@aar'
+
+    //Calendar
     implementation 'com.wdullaer:materialdatetimepicker:4.2.3'
 
     testImplementation 'junit:junit:4.13.1'

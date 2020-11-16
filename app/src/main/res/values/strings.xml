@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">denticitas_android</string>
+    <string name="app_name">Denticitas</string>
     <string name="title_activity_dashboard">DashboardActivity</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -50,4 +50,5 @@
     <string name="selecciona_turno">Seleccionar turno</string>
     <string name="pref_key">DENTICITAS-SEM-INTEGRADOR</string>
     <string name="selecciona_fecha">Seleccionar fecha</string>
+    <string name="salir">SALIR</string>
 </resources>
