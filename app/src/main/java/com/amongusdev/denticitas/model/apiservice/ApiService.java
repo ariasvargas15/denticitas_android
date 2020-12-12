@@ -6,6 +6,7 @@ import com.amongusdev.denticitas.model.apiservice.bodies.GenericResponse;
 import com.amongusdev.denticitas.model.apiservice.bodies.LoginBody;
 import com.amongusdev.denticitas.model.entities.Agenda;
 import com.amongusdev.denticitas.model.entities.Cita;
+import com.amongusdev.denticitas.model.entities.Cliente;
 import com.amongusdev.denticitas.model.entities.Especialista;
 import com.amongusdev.denticitas.model.entities.Servicio;
 
@@ -32,6 +33,9 @@ public interface ApiService {
 
     @GET("/especialista/{cedula}/agenda")
     Call<List<Agenda>> getAgendaEspecialista(@Path("cedula") String cedula);
+
+    @GET("/cliente/{cedula}")
+    Call<Cliente> getCliente(@Path("cedula") String cedula);
 
     @POST("/login")
     Call<GenericResponse> login(@Body LoginBody loginBody);

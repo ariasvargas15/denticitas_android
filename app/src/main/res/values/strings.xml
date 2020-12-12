@@ -52,4 +52,5 @@
     <string name="pref_key">DENTICITAS-SEM-INTEGRADOR</string>
     <string name="selecciona_fecha">Seleccionar fecha</string>
     <string name="salir">SALIR</string>
+    <string name="modify_button">Actualizar</string>
 </resources>
