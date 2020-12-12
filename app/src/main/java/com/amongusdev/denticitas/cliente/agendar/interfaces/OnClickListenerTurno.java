@@ -1,5 +1,5 @@
 package com.amongusdev.denticitas.cliente.agendar.interfaces;
 
-public interface OnClickListenerCita {
+public interface OnClickListenerTurno {
     void crearCita(int idTurno);
 }

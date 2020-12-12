@@ -14,6 +14,7 @@
 
     <string name="name_customer">Diana</string>
     <string name="menu_servicios">Servicios</string>
+    <string name="menu_profile">Perfil</string>
     <string name="menu_citas">Mis citas</string>
     <string name="menu_agendar">Agendar</string>
     <string name="menu_info">Acerca de</string>

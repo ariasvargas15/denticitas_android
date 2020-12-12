@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -13,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.amongusdev.denticitas.R;
 import com.amongusdev.denticitas.cliente.agendar.adapter.TurnoAdapter;
+import com.amongusdev.denticitas.cliente.citas.interfaces.OnClickListenerCita;
 import com.amongusdev.denticitas.model.entities.Cita;
 import com.amongusdev.denticitas.model.entities.Persona;
 import com.amongusdev.denticitas.utils.Utils;
@@ -28,6 +30,7 @@ public class CitaAdapter extends RecyclerView.Adapter<CitaAdapter.CitaViewHolder
 
     ArrayList<Cita> citas;
     Context context;
+    OnClickListenerCita onClick;
 
     public CitaAdapter(ArrayList<Cita> citas, Context context){
         this.citas = citas;
@@ -52,6 +55,7 @@ public class CitaAdapter extends RecyclerView.Adapter<CitaAdapter.CitaViewHolder
         holder.fecha.setText(Utils.dateToString(fechaCal));
 
         boolean res = citaPendiente(fechaCal);
+        if (!res) holder.delete.setVisibility(View.GONE);
         int drawable = res ? R.drawable.shape_card_cita : R.drawable.shape_card_cita_past;
         int color = res ? R.color.colorPrimary : R.color.White;
 
@@ -80,6 +84,10 @@ public class CitaAdapter extends RecyclerView.Adapter<CitaAdapter.CitaViewHolder
         return Calendar.getInstance().before(fechaCal);
     }
 
+    public void setOnClick(OnClickListenerCita onClick) {
+        this.onClick = onClick;
+    }
+
     @Override
     public int getItemCount() {
         return citas.size();
@@ -97,10 +105,14 @@ public class CitaAdapter extends RecyclerView.Adapter<CitaAdapter.CitaViewHolder
         TextView especialista;
         @BindView(R.id.linear_cita)
         LinearLayout linear;
+        @BindView(R.id.btn_delete)
+        ImageView delete;
 
         public CitaViewHolder(@NonNull View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
+
+            delete.setOnClickListener(v -> onClick.deleteCita(citas.get(getAdapterPosition())));
         }
     }
 }

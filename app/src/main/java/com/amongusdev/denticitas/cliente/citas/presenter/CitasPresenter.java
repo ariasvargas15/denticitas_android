@@ -25,4 +25,14 @@ public class CitasPresenter implements ICitas.Presenter {
     public void setCitas(ArrayList<Cita> citas) {
         view.setCitas(citas);
     }
+
+    @Override
+    public void deleteCita(Cita cita) {
+        interactor.deleteCita(cita);
+    }
+
+    @Override
+    public void showResponseDelete(boolean success) {
+        view.showResponseDelete(success);
+    }
 }

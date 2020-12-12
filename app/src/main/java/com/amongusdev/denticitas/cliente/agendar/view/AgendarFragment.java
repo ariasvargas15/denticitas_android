@@ -100,6 +100,7 @@ public class AgendarFragment extends Fragment implements IAgendar.View, AdapterV
     public void confirmarFecha() {
         getDiaAgenda();
         Bundle b = new Bundle();
+        b.putSerializable("date", myCalendar);
         b.putSerializable("servicio", servicio);
         b.putSerializable("agenda", diaAgenda);
         navController.navigate(R.id.action_nav_agendar_to_nav_turno, b);
@@ -136,7 +137,7 @@ public class AgendarFragment extends Fragment implements IAgendar.View, AdapterV
         diasHabiles = new ArrayList<>();
         for (Agenda a : agendas){
             for (DiaAgenda d : a.getDiaAgendaList()){
-                diasHabiles.add(setDate(a.getAnio(), a.getMes(), d.getDia()));
+                diasHabiles.add(setDate(a.getAnio(), a.getMes() - 1, d.getDia()));
             }
         }
         if (diasHabiles.isEmpty()){
@@ -193,7 +194,7 @@ public class AgendarFragment extends Fragment implements IAgendar.View, AdapterV
         for (Agenda a : agenda){
             for (DiaAgenda d : a.getDiaAgendaList()){
                 if (a.getAnio() == myCalendar.get(Calendar.YEAR)
-                && a.getMes() == myCalendar.get(Calendar.MONTH)
+                && a.getMes() == myCalendar.get(Calendar.MONTH) + 1
                 && d.getDia() == myCalendar.get(Calendar.DATE)){
                     diaAgenda = d;
                     break;

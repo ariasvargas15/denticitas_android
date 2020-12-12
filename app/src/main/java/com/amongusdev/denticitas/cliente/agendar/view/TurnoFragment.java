@@ -17,28 +17,26 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.amongusdev.denticitas.DashboardActivity;
 import com.amongusdev.denticitas.R;
 import com.amongusdev.denticitas.cliente.agendar.adapter.TurnoAdapter;
 import com.amongusdev.denticitas.cliente.agendar.interfaces.ITurno;
-import com.amongusdev.denticitas.cliente.agendar.interfaces.OnClickListenerCita;
+import com.amongusdev.denticitas.cliente.agendar.interfaces.OnClickListenerTurno;
 import com.amongusdev.denticitas.cliente.agendar.presenter.TurnoPresenter;
-import com.amongusdev.denticitas.cliente.servicios.adapter.ServicioAdapter;
 import com.amongusdev.denticitas.model.entities.DiaAgenda;
 import com.amongusdev.denticitas.model.entities.Servicio;
 import com.amongusdev.denticitas.model.entities.Turno;
 import com.amongusdev.denticitas.utils.Utils;
-import com.google.android.material.button.MaterialButton;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import dmax.dialog.SpotsDialog;
 
-public class TurnoFragment extends Fragment implements ITurno.View, OnClickListenerCita {
+public class TurnoFragment extends Fragment implements ITurno.View, OnClickListenerTurno {
 
     @BindView(R.id.recycler_turnos)
     RecyclerView recycler;
@@ -53,6 +51,7 @@ public class TurnoFragment extends Fragment implements ITurno.View, OnClickListe
 
     private DiaAgenda diaAgenda;
     private Servicio servicio;
+    private Calendar date;
     AlertDialog dialog;
     NavController navController;
 
@@ -64,6 +63,7 @@ public class TurnoFragment extends Fragment implements ITurno.View, OnClickListe
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
+            date = (Calendar) getArguments().getSerializable("date");
             diaAgenda = (DiaAgenda) getArguments().getSerializable(ARG_PARAM1);
             servicio = (Servicio) getArguments().getSerializable(ARG_PARAM2);
         }
@@ -75,6 +75,7 @@ public class TurnoFragment extends Fragment implements ITurno.View, OnClickListe
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_turno, container, false);
         ButterKnife.bind(this, v);
+        fecha.setText(Utils.dateToString(date).replace("\n", " "));
         presenter = new TurnoPresenter(this);
         SpotsDialog.Builder sp = new SpotsDialog.Builder();
         sp.setContext(getContext()).setCancelable(false).setMessage("Loading...");

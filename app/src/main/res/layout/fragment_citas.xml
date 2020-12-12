@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/White"
-    tools:context=".cliente.citas.view.CitasFragment">
+    tools:context=".cliente.citas.view.CitasFragment"
+    android:id="@+id/citas">
 
     <RelativeLayout
         android:layout_width="match_parent"

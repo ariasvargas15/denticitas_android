@@ -13,6 +13,7 @@ import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.PATCH;
 import retrofit2.http.POST;
@@ -43,6 +44,9 @@ public interface ApiService {
 
     @PATCH("/cliente/{cedula}")
     Call<GenericResponse> setDatosCliente(@Path("cedula") String cedula, @Body ClienteBody clienteBody);
+
+    @DELETE("/cita/{id}")
+    Call<GenericResponse> deleteCita(@Path("id") int id);
 
 
 

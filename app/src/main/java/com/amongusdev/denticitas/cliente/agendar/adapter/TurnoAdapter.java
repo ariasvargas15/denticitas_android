@@ -1,7 +1,6 @@
 package com.amongusdev.denticitas.cliente.agendar.adapter;
 
 import android.content.Context;
-import android.content.res.Resources;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,8 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.amongusdev.denticitas.R;
-import com.amongusdev.denticitas.cliente.agendar.interfaces.OnClickListenerCita;
-import com.amongusdev.denticitas.cliente.servicios.adapter.ServicioAdapter;
+import com.amongusdev.denticitas.cliente.agendar.interfaces.OnClickListenerTurno;
 import com.amongusdev.denticitas.model.entities.Turno;
 import com.amongusdev.denticitas.utils.Utils;
 import com.google.android.material.button.MaterialButton;
@@ -26,7 +24,7 @@ public class TurnoAdapter extends RecyclerView.Adapter<TurnoAdapter.TurnoViewHol
 
     ArrayList<Turno> turnos;
     Context context;
-    OnClickListenerCita onClick;
+    OnClickListenerTurno onClick;
 
     public TurnoAdapter(ArrayList<Turno> turnos, Context context) {
         this.turnos = turnos;
@@ -70,7 +68,7 @@ public class TurnoAdapter extends RecyclerView.Adapter<TurnoAdapter.TurnoViewHol
         return turnos.size();
     }
 
-    public void setOnClick(OnClickListenerCita onClick){
+    public void setOnClick(OnClickListenerTurno onClick){
         this.onClick = onClick;
     }
 
