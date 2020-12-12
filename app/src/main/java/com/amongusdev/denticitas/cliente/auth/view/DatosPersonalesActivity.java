@@ -92,6 +92,13 @@ public class DatosPersonalesActivity extends AppCompatActivity implements IDatos
         } else if (!validarEmail(email.getText().toString())) {
             Snackbar.make(completar, "Email no válido", Snackbar.LENGTH_SHORT).show();
             return false;
+        } else {
+           Calendar c = (Calendar) myCalendar.clone();
+           c.add(Calendar.YEAR, 18);
+           if (c.after(Calendar.getInstance())){
+               Snackbar.make(completar, "Debes ser mayor de edad", Snackbar.LENGTH_SHORT).show();
+               return false;
+           }
         }
         return true;
     }

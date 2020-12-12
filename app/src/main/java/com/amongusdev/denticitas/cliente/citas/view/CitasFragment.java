@@ -39,6 +39,8 @@ public class CitasFragment extends Fragment implements ICitas.View, OnClickListe
     ICitas.Presenter presenter;
     AlertDialog dialog;
     String cedula;
+    CitaAdapter adapter;
+    ArrayList<Cita> citasArray;
 
     public CitasFragment() {
         // Required empty public constructor
@@ -63,7 +65,8 @@ public class CitasFragment extends Fragment implements ICitas.View, OnClickListe
 
     @Override
     public void setCitas(ArrayList<Cita> citas) {
-        CitaAdapter adapter = new CitaAdapter(citas, getContext());
+        citasArray = citas;
+        adapter = new CitaAdapter(citasArray, getContext());
         adapter.setOnClick(this);
         LinearLayoutManager lm = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         recycler.setLayoutManager(lm);
@@ -76,12 +79,14 @@ public class CitasFragment extends Fragment implements ICitas.View, OnClickListe
         dialog.dismiss();
         String msj = success ? "Cita eliminada correctamente" : "Error al eliminar la cita";
         Snackbar.make(citas, msj, Snackbar.LENGTH_SHORT).show();
-        presenter.getCitas(cedula);
+        adapter.notifyDataSetChanged();
     }
 
     @Override
     public void deleteCita(Cita cita) {
         dialog.show();
         presenter.deleteCita(cita);
+        citasArray.remove(cita);
+
     }
 }
