@@ -44,21 +44,18 @@ public class TurnoAdapter extends RecyclerView.Adapter<TurnoAdapter.TurnoViewHol
         String h = Utils.convert24HourToAmPm(turno.getHoraInicio());
         holder.hora.setText(h);
 
-        String text = !turno.getEstado() ? "Agendar" : "Ocupado";
-        int color = !turno.getEstado() ?  R.color.colorPrimary : R.color.DarkGray;
+        String text = turno.getDisponible() ? "Agendar" : "Ocupado";
+        int color = turno.getDisponible() ?  R.color.colorPrimary : R.color.DarkGray;
 
         holder.estado.setText(text);
         holder.estado.setBackgroundColor(context.getResources().getColor(color, context.getTheme()));
-        holder.estado.setEnabled(!turno.getEstado());
+        holder.estado.setEnabled(turno.getDisponible());
 
-        holder.estado.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onClick.crearCita(turno.getId());
-                holder.estado.setEnabled(false);
-                holder.estado.setText("Cita Agendada :)");
-                holder.estado.setBackgroundColor(context.getResources().getColor(R.color.Green, context.getTheme()));
-            }
+        holder.estado.setOnClickListener(v -> {
+            onClick.crearCita(turno.getId());
+            holder.estado.setEnabled(false);
+            holder.estado.setText("Cita Agendada :)");
+            holder.estado.setBackgroundColor(context.getResources().getColor(R.color.Green, context.getTheme()));
         });
 
     }

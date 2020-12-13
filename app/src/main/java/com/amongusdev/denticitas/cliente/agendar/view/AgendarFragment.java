@@ -124,7 +124,9 @@ public class AgendarFragment extends Fragment implements IAgendar.View, AdapterV
         this.especialistas = especialistas;
         ArrayList<String> array = new ArrayList<>();
         for (Especialista e : especialistas){
-            array.add(e.getPersona().getNombre() + " " + e.getPersona().getApellido());
+            if (e.getPersona().getActivo()){
+                array.add(e.getPersona().getNombre() + " " + e.getPersona().getApellido());
+            }
         }
         ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, array);
         this.spinner.setAdapter(adapter);

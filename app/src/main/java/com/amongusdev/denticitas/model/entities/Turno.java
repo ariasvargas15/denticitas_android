@@ -23,11 +23,14 @@ public class Turno implements Serializable {
     @SerializedName("duracion")
     @Expose
     private Integer duracion;
-    @SerializedName("estado")
+    @SerializedName("disponible")
     @Expose
-    private Boolean estado;
+    private Boolean disponible;
     @SerializedName("diaAgendaId")
     @Expose
     private DiaAgenda diaAgenda;
+    @SerializedName("tiempoDisponible")
+    @Expose
+    private Integer tiempoDisponible;
 
 }

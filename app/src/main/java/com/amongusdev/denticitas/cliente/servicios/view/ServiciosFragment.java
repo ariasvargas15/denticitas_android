@@ -28,6 +28,7 @@ import com.amongusdev.denticitas.model.entities.Servicio;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
+import java.util.function.Consumer;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -87,10 +88,16 @@ public class ServiciosFragment extends Fragment implements IServicios.View, OnCl
 
     @Override
     public void mostrarServicios(ArrayList<Servicio> servicios) {
+        ArrayList<Servicio> aux = new ArrayList<>();
+        servicios.forEach( servicio -> {
+            if (servicio.getEstado()){
+                aux.add(servicio);
+            }
+        });
         LinearLayoutManager lm = new LinearLayoutManager(getContext());
         lm.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(lm);
-        adapter = new ServicioAdapter(servicios);
+        adapter = new ServicioAdapter(aux);
         adapter.setOnClick(this);
         recyclerView.setAdapter(adapter);
         dialog.dismiss();

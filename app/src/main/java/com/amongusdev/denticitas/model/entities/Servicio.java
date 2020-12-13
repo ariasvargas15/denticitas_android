@@ -31,5 +31,8 @@ public class Servicio implements Serializable {
     @SerializedName("areaId")
     @Expose
     private Area area;
+    @SerializedName("estado")
+    @Expose
+    private Boolean estado;
 
 }
