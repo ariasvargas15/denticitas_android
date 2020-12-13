@@ -8,6 +8,7 @@ import com.amongusdev.denticitas.model.entities.Agenda;
 import com.amongusdev.denticitas.model.entities.Cita;
 import com.amongusdev.denticitas.model.entities.Cliente;
 import com.amongusdev.denticitas.model.entities.Especialista;
+import com.amongusdev.denticitas.model.entities.Evolucion;
 import com.amongusdev.denticitas.model.entities.Servicio;
 
 import java.util.List;
@@ -51,6 +52,9 @@ public interface ApiService {
 
     @DELETE("/cita/{id}")
     Call<GenericResponse> deleteCita(@Path("id") int id);
+
+    @GET("historiaclinica/{cedula}/evolucion")
+    Call<List<Evolucion>> getEvolucion(@Path("cedula") String cedula);
 
 
 

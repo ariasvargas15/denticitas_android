@@ -53,4 +53,5 @@
     <string name="selecciona_fecha">Seleccionar fecha</string>
     <string name="salir">SALIR</string>
     <string name="modify_button">Actualizar</string>
+    <string name="mi_historia">Mi historia</string>
 </resources>

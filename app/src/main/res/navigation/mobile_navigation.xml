@@ -49,4 +49,9 @@
         tools:layout="@layout/fragment_blank"
         />
 
+    <fragment
+        android:id="@+id/nav_historia"
+        android:name="com.amongusdev.denticitas.cliente.historia.view.HistoriaFragment"
+        tools:layout="@layout/fragment_historia"/>
+
 </navigation>
